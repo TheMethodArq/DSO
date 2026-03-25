@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DSO (Digital Sales Office) - Taylor Morrison
 
-## Getting Started
+Digital Sales Office touch screen application for Taylor Morrison sales centers.
 
-First, run the development server:
+## Overview
+
+This Next.js application replaces the legacy Dovela/centravu® DSO system with a modern, maintainable solution that pulls data directly from the Taylor Morrison XML feed.
+
+## Features
+
+- **Welcome Page**: Community overview with quick navigation
+- **Floor Plans**: Browse all available floor plans with interactive viewers
+- **Available Homes**: List of move-in ready spec homes
+- **Interactive Site Map**: Embedded site plan with lot availability
+- **Photo Gallery**: Community and model home photos
+- **Community Info**: Amenities, schools, HOA, and sales office details
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Data**: Taylor Morrison XML Feed
+- **Interactive Media**: Embedded tm-vu.com iframes
+
+## Quick Start
+
+### Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Production Build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Build for production
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Start production server
+npm start
+```
 
-## Learn More
+### Docker Deployment
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Or build manually
+docker build -t dso-app .
+docker run -p 3000:3000 dso-app
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment Variables
 
-## Deploy on Vercel
+Create `.env.local`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+COMMUNITY_NAME="Emory Crossing 40s"
+COMMUNITY_SUBDIVISION_NUMBER="12357690"
+SITE_PLAN_URL="https://tm-vu.com/siteplan/pI8ELRVMx8g8r7XtNtln"
+XML_FEED_URL="https://cm.taylormorrison.com/DataFeeds/TaylorMorrison.xml"
+REVALIDATE_SECONDS="3600"
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Data Sources
+
+- **XML Feed**: `https://cm.taylormorrison.com/DataFeeds/TaylorMorrison.xml`
+- **Interactive Site Plan**: `https://tm-vu.com/siteplan/{id}`
+- **Interactive Floor Plans**: `https://tm-vu.com/plan/{id}`
+- **Images**: `tmi-p-001.sitecorecontenthub.cloud`
+
+## Touch Screen Optimization
+
+- Minimum touch target: 60x60px
+- Large typography (18px+ base)
+- No hover-dependent interactions
+- Full 1920x1080 support
+
+## Project Structure
+
+```
+my-app/
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # Welcome/Landing
+│   ├── floor-plans/       # Floor plans pages
+│   ├── available-homes/   # Spec homes list
+│   ├── site-map/          # Interactive site plan
+│   ├── gallery/           # Photo gallery
+│   ├── community/         # Community info
+│   └── api/health/        # Health check
+├── components/            # React components
+│   ├── ui/               # shadcn components
+│   ├── navigation/       # TouchNav
+│   ├── floor-plans/      # FloorPlanCard
+│   ├── homes/            # SpecHomeCard
+│   ├── iframes/          # Embed components
+│   └── shared/           # ImageGallery
+├── lib/                  # Utilities
+│   └── data/            # Types, parser, data fetcher
+└── public/              # Static assets
+```
+
+## Available Scripts
+
+- `npm run dev` - Development server
+- `npm run build` - Production build
+- `npm start` - Production server
+- `npm run lint` - ESLint
+
+## Health Check
+
+Endpoint: `/api/health`
+
+Returns:
+```json
+{
+  "status": "ok",
+  "timestamp": "2026-03-24T12:00:00.000Z",
+  "service": "DSO App",
+  "version": "1.0.0"
+}
+```
+
+## License
+
+Private - Taylor Morrison

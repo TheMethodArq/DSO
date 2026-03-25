@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  dso:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - COMMUNITY_NAME=${COMMUNITY_NAME:-Emory Crossing 40s}
+      - XML_FEED_URL=${XML_FEED_URL:-https://cm.taylormorrison.com/DataFeeds/TaylorMorrison.xml}
+      - SITE_PLAN_URL=${SITE_PLAN_URL:-https://tm-vu.com/siteplan/pI8ELRVMx8g8r7XtNtln}
+      - REVALIDATE_SECONDS=${REVALIDATE_SECONDS:-3600}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
