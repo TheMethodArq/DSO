@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { SpecHomeCard } from '@/components/homes/SpecHomeCard';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { urls } from '@/lib/config/urls';
 import { Loader2, Filter, ArrowUpDown } from 'lucide-react';
 import { SpecHomeInfo } from '@/lib/data/types';
 import useSWR from 'swr';
@@ -101,10 +102,20 @@ export default function AvailableHomesPage() {
     <div className="container mx-auto px-6 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Available Homes Now</h1>
+        <div className="flex items-center gap-3 mb-4">
+          <h1 className="text-4xl font-bold">Available Homes Now</h1>
+          {urls.isQA && (
+            <Badge className="bg-amber-500 text-white">QA Environment</Badge>
+          )}
+        </div>
         <p className="text-lg text-gray-600 max-w-2xl">
           Move-in ready homes at Emory Crossing 40s. These spec homes are 
           under construction or completed and ready for quick move-in.
+          {urls.isQA && (
+            <span className="block mt-2 text-amber-600">
+              Using QA URLs: {urls.baseUrl}
+            </span>
+          )}
         </p>
       </div>
 

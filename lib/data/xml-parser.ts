@@ -2,7 +2,7 @@ import { XMLParser } from 'fast-xml-parser';
 
 const parserOptions = {
   ignoreAttributes: false,
-  attributeNamePrefix: '@_',
+  attributeNamePrefix: '',  // No prefix - attributes become properties directly
   parseAttributeValue: true,
   parseTagValue: true,
   trimValues: true,

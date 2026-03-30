@@ -26,25 +26,25 @@ export default async function GalleryPage() {
   // Filter images by type if possible
   const interiorImages = allImages.filter(
     img => 
-      img['@_Title']?.toLowerCase().includes('interior') ||
-      img['@_Title']?.toLowerCase().includes('kitchen') ||
-      img['@_Title']?.toLowerCase().includes('bedroom') ||
-      img['@_Title']?.toLowerCase().includes('bathroom') ||
-      img['@_Title']?.toLowerCase().includes('living') ||
-      img['@_Caption']?.toLowerCase().includes('interior') ||
-      img['@_Caption']?.toLowerCase().includes('kitchen') ||
-      img['@_Caption']?.toLowerCase().includes('room')
+      img.Title?.toLowerCase().includes('interior') ||
+      img.Title?.toLowerCase().includes('kitchen') ||
+      img.Title?.toLowerCase().includes('bedroom') ||
+      img.Title?.toLowerCase().includes('bathroom') ||
+      img.Title?.toLowerCase().includes('living') ||
+      img.Caption?.toLowerCase().includes('interior') ||
+      img.Caption?.toLowerCase().includes('kitchen') ||
+      img.Caption?.toLowerCase().includes('room')
   );
 
   const exteriorImages = allImages.filter(
     img => 
-      img['@_Title']?.toLowerCase().includes('elevation') ||
-      img['@_Title']?.toLowerCase().includes('front') ||
-      img['@_Title']?.toLowerCase().includes('exterior') ||
-      img['@_Title']?.toLowerCase().includes('pool') ||
-      img['@_Caption']?.toLowerCase().includes('elevation') ||
-      img['@_Caption']?.toLowerCase().includes('exterior') ||
-      img['@_Caption']?.toLowerCase().includes('pool')
+      img.Title?.toLowerCase().includes('elevation') ||
+      img.Title?.toLowerCase().includes('front') ||
+      img.Title?.toLowerCase().includes('exterior') ||
+      img.Title?.toLowerCase().includes('pool') ||
+      img.Caption?.toLowerCase().includes('elevation') ||
+      img.Caption?.toLowerCase().includes('exterior') ||
+      img.Caption?.toLowerCase().includes('pool')
   );
 
   const hasInteriorImages = interiorImages.length > 0;
@@ -56,12 +56,12 @@ export default async function GalleryPage() {
   const exteriorUrls = hasExteriorImages ? exteriorImages.map(img => img.value) : [];
 
   // Extract titles for each category
-  const allTitles = allImages.map(img => img['@_Title'] || img['@_Caption']);
+  const allTitles = allImages.map(img => img.Title || img.Caption);
   const interiorTitles = hasInteriorImages 
-    ? interiorImages.map(img => img['@_Title'] || img['@_Caption']) 
+    ? interiorImages.map(img => img.Title || img.Caption) 
     : [];
   const exteriorTitles = hasExteriorImages 
-    ? exteriorImages.map(img => img['@_Title'] || img['@_Caption']) 
+    ? exteriorImages.map(img => img.Title || img.Caption) 
     : [];
 
   // If no categorization possible, just show all images

@@ -78,12 +78,12 @@ export function parseCommunityInfo(subdivision: Subdivision): CommunityInfo {
     hours: formatHours(office.Hours),
     amenities: (subdivision.SubAmenity || [])
       .filter(a => String(a.value) === '1')
-      .map(a => a['@_Type']),
+      .map(a => a.Type),
     schools: subdivision.Schools || [],
     hoaFee: subdivision.Service?.find(s => s.Type === 'HOA')?.MonthlyFee,
     taxRate: subdivision.Taxes?.TotalTaxRate,
     images: (subdivision.SubImage || [])
-      .filter(img => img['@_Type'] === 'Standard')
+      .filter(img => img.Type === 'Standard')
       .map(img => img.value),
     sitePlanUrl: subdivision.SubInteractiveMedia?.WebsiteURL || SITE_PLAN_URL,
     videoTour: subdivision.SubVideoTour?.value,

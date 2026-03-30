@@ -1,16 +1,25 @@
 'use client';
 
-import { SitePlanEmbed } from '@/components/iframes/SitePlanEmbed';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { urls } from '@/lib/config/urls';
 import { MapPin, Info } from 'lucide-react';
 
 export default function SiteMapPage() {
-  const sitePlanUrl = 'https://tm-vu.com/siteplan/pI8ELRVMx8g8r7XtNtln';
+  const sitePlanUrl = urls.siteMap;
 
   return (
     <div className="relative w-full h-[calc(100vh-80px)]">
       {/* Site Plan Embed - Full Screen */}
-      <SitePlanEmbed url={sitePlanUrl} />
+      <div className="relative w-full h-full bg-gray-100">
+        <iframe
+          src={sitePlanUrl}
+          className="w-full h-full border-0"
+          title="Interactive Site Plan"
+          sandbox="allow-scripts allow-same-origin allow-popups"
+          allow="fullscreen"
+        />
+      </div>
 
       {/* Legend Overlay */}
       <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg p-4 border">
@@ -55,6 +64,17 @@ export default function SiteMapPage() {
         <Badge className="bg-black text-white text-base px-4 py-2 shadow-lg">
           Emory Crossing 40s
         </Badge>
+      </div>
+
+      {/* Open Full Site Button */}
+      <div className="absolute bottom-4 right-4 z-10">
+        <Button 
+          variant="default" 
+          className="shadow-lg"
+          onClick={() => window.open(sitePlanUrl, '_blank')}
+        >
+          Open Full Site Map
+        </Button>
       </div>
     </div>
   );

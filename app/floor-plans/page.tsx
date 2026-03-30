@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { FloorPlanInfo } from '@/lib/data/types';
 import { formatPrice, formatSqft } from '@/lib/data/community-data';
-import { Loader2, Bed, Bath, Square, Car, Info } from 'lucide-react';
+import { urls } from '@/lib/config/urls';
+import { Loader2, Bed, Bath, Square, Car } from 'lucide-react';
 import useSWR from 'swr';
 
 type FilterType = 'all' | '1-story' | '2-story';
@@ -207,25 +208,15 @@ export default function FloorPlansPage() {
 
             {/* Interactive Floor Plan */}
             <div className="flex-1 p-6">
-              {selectedPlan.interactiveUrl ? (
-                <div className="w-full h-full bg-white rounded-lg shadow-lg overflow-hidden">
-                  <iframe
-                    src={selectedPlan.interactiveUrl}
-                    className="w-full h-full border-0"
-                    title={`${selectedPlan.name} Interactive Floor Plan`}
-                    sandbox="allow-scripts allow-same-origin allow-popups"
-                    allow="fullscreen"
-                  />
-                </div>
-              ) : (
-                <div className="w-full h-full bg-white rounded-lg shadow-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <Info className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <p className="text-xl text-gray-500 mb-2">Interactive floor plan coming soon</p>
-                    <p className="text-gray-400">Please check back later or contact our sales office</p>
-                  </div>
-                </div>
-              )}
+              <div className="w-full h-full bg-white rounded-lg shadow-lg overflow-hidden">
+                <iframe
+                  src={urls.floorPlans.detail(selectedPlan.name)}
+                  className="w-full h-full border-0"
+                  title={`${selectedPlan.name} Interactive Floor Plan`}
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                  allow="fullscreen"
+                />
+              </div>
             </div>
 
             {/* Bottom Info Bar */}
@@ -251,8 +242,12 @@ export default function FloorPlansPage() {
                     <span className="text-lg font-semibold">{formatSqft(selectedPlan.sqft)}</span>
                   </div>
                 </div>
-                <Button size="lg" className="touch-button">
-                  Schedule Appointment
+                <Button 
+                  size="lg" 
+                  className="touch-button"
+                  onClick={() => window.open(urls.floorPlans.detail(selectedPlan.name), '_blank')}
+                >
+                  View on Website
                 </Button>
               </div>
             </div>
